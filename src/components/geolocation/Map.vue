@@ -1,8 +1,8 @@
 <template>
   <div class="map-container">
     <!-- <img class="map" v-bind:src="mapUrl" v-if="showMap" /> -->
-    <gmap-map v-bind:center="position" v-bind:zoom="15" map-type-id="terrain" class="map">
-      <gmap-marker v-bind:position="position" v-bind:clickable="true" v-bind:draggable="true"></gmap-marker>
+    <gmap-map v-bind:center="position" v-bind:zoom="16" map-type-id="terrain" class="map">
+      <gmap-marker v-bind:position="position" v-bind:clickable="true" v-bind:draggable="true" v-bind:animation="2"></gmap-marker>
     </gmap-map>
   </div>
 </template>
@@ -21,24 +21,24 @@
 
     name: 'Map',
 
-    props: ['lat', 'long'],
-
     data () {
       return {
-        mapUrl: '',
         showMap: false
       }
     },
 
     created: function() {
-      if (this.lat !== '' && this.long !== '') {
+      const { location } = this.$store.state
+      
+      if (location.latitude !== '' && location.latitude !== '') {
         this.showMap = true
       }
     },
 
     computed: {
       position: function() {
-        return { lat: this.lat, lng: this.long }
+        const { location } = this.$store.state
+        return { lat: location.latitude, lng: location.longitude }
       }
     }
   }

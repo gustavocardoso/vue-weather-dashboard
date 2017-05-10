@@ -15,12 +15,12 @@
     
     <section class="location-info" v-bind:class="{ highlight: highlight }" v-show="showPosition">
       <h3>Location info:</h3>
-      <span>{{ city }}</span>
+      <span>{{ locationInfo.formatted }}</span>
       <span>{{ locationInfo.country }}</span>
     </section>
 
     <section class="map">
-      <cc-map v-bind:lat="currentPosition.latitude" v-bind:long="currentPosition.longitude" v-if="showMap"></cc-map>
+      <cc-map v-if="showMap"></cc-map>
     </section>
   </div>
 </template>
@@ -41,17 +41,7 @@
         highlight: false,
         showPosition: false,
         searching: false,
-        showMap: false,
-        currentPosition: {
-          latitude: '',
-          longitude: ''
-        },
-        locationInfo: {
-          city: '',
-          neighborhood: '',
-          admArea: '',
-          country: ''
-        }
+        showMap: false
       }
     },
 
@@ -63,8 +53,12 @@
           this.searching = true
 
           navigator.geolocation.getCurrentPosition((position) => {
-            this.currentPosition.latitude = position.coords.latitude
-            this.currentPosition.longitude = position.coords.longitude
+            const payload = {
+              latitude: position.coords.latitude,
+              longitude: position.coords.longitude
+            }
+
+            this.$store.commit('UPDATE_LOCATION', payload)
 
             this.getCity()
           })
@@ -76,12 +70,14 @@
       getCity: function() {
         // const geoUrl = 'http://dataservice.accuweather.com/locations/v1/cities/geoposition/search?apikey=GYqoGW1BnIwLzyt5zfSzCpVsmoF9Qd83&q='+ this.currentPosition.latitude +'%2C'+ this.currentPosition.longitude +''
 
+        const { location } = this.$store.state
+
         let geoUrl
 
         if (window.location.protocol === 'https:') {
-          geoUrl = 'https://maps.googleapis.com/maps/api/geocode/json?latlng='+ this.currentPosition.latitude +','+ this.currentPosition.longitude +'&sensor=true&key=AIzaSyDH9VkR9iqxQ1oqODV5uSQltWGqJxxzj38'
+          geoUrl = 'https://maps.googleapis.com/maps/api/geocode/json?latlng='+ location.latitude +','+ location.longitude +'&sensor=true&key=AIzaSyDH9VkR9iqxQ1oqODV5uSQltWGqJxxzj38'
         } else {
-          geoUrl = 'http://maps.googleapis.com/maps/api/geocode/json?latlng='+ this.currentPosition.latitude +','+ this.currentPosition.longitude +'&sensor=true'
+          geoUrl = 'http://maps.googleapis.com/maps/api/geocode/json?latlng='+ location.latitude +','+ location.longitude +'&sensor=true'
         }
         
         const geoPosition = this.$http.get(geoUrl)
@@ -89,10 +85,14 @@
         geoPosition.then((response) => {
           const info = response.body.results[0].address_components
 
-          this.locationInfo.city = info[4].long_name
-          this.locationInfo.neighborhood = info[3].long_name
-          this.locationInfo.admArea = info[6].short_name
-          this.locationInfo.country = info[7].long_name
+          const payload = {
+                            city: info[4].long_name,
+                            neighborhood: info[3].long_name,
+                            admArea: info[6].short_name,
+                            country: info[7].long_name
+                          }
+
+          this.$store.commit('UPDATE_LOCATION_INFO', payload)
           
           this.showPosition = true
           this.searching = false
@@ -111,8 +111,20 @@
     },
 
     computed: {
-      city: function() {
-        return `${this.locationInfo.neighborhood} - ${this.locationInfo.city}/${this.locationInfo.admArea}`
+      currentPosition: function() {
+        return this.$store.state.location
+      },
+
+      locationInfo: function() {
+        const { locationInfo } = this.$store.state
+        
+        return {
+          city: locationInfo.city,
+          neighborhood: locationInfo.neighborhood,
+          admArea: locationInfo.admArea,
+          country: locationInfo.country,
+          formatted: `${locationInfo.neighborhood} - ${locationInfo.city} / ${locationInfo.admArea}`
+        }
       }
     }
   }
