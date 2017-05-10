@@ -1,6 +1,6 @@
 # vue-weather-dahboard
 
-> A simple app to play with vue resources"
+> A simple app to play with vue resources
 
 ## Build Setup
 
