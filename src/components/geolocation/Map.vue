@@ -1,6 +1,5 @@
 <template>
   <div class="map-container">
-    <!-- <img class="map" v-bind:src="mapUrl" v-if="showMap" /> -->
     <gmap-map v-bind:center="position" v-bind:zoom="16" map-type-id="terrain" class="map">
       <gmap-marker v-bind:position="position" v-bind:clickable="true" v-bind:draggable="true" v-bind:animation="2"></gmap-marker>
     </gmap-map>

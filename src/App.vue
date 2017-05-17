@@ -4,6 +4,8 @@
 
     <section class="content">
       <wd-geolocation></wd-geolocation>
+
+      <wd-weather></wd-weather>
     </section>
   </div>
 </template>
@@ -11,6 +13,7 @@
 <script>
   import WdHeader from './components/header/Header'
   import WdGeolocation from './components/geolocation/Geolocation'
+  import WdWeather from './components/weather/Weather'
 
   export default {
     name: 'app',
@@ -22,7 +25,8 @@
 
     components: {
       WdHeader,
-      WdGeolocation
+      WdGeolocation,
+      WdWeather
     }
   }
 </script>
