@@ -27,6 +27,7 @@
 
 <script>
   import CcMap from './Map'
+  import axios from 'axios'
 
   export default {
     name: 'geolocation',
@@ -80,33 +81,32 @@
           geoUrl = 'http://maps.googleapis.com/maps/api/geocode/json?latlng='+ location.latitude +','+ location.longitude +'&sensor=true'
         }
         
-        const geoPosition = this.$http.get(geoUrl)
+        axios.get(geoUrl)
+          .then((response) => {
+            const info = response.data.results[0].address_components
+            
+            const payload = {
+              city: info[4].long_name,
+              neighborhood: info[3].long_name,
+              admArea: info[6].short_name,
+              country: info[7].long_name
+            }
 
-        geoPosition.then((response) => {
-          const info = response.body.results[0].address_components
+            this.$store.commit('UPDATE_LOCATION_INFO', payload)
+                      
+            this.showPosition = true
+            this.searching = false
+            this.showMap = true
 
-          const payload = {
-                            city: info[4].long_name,
-                            neighborhood: info[3].long_name,
-                            admArea: info[6].short_name,
-                            country: info[7].long_name
-                          }
-
-          this.$store.commit('UPDATE_LOCATION_INFO', payload)
-          
-          this.showPosition = true
-          this.searching = false
-          this.showMap = true
-
-          let self = this
-          
-          setTimeout(function() {
-            self.highlight = true
-          }, 1)
-        }).catch((error) => {
-          this.error = error
-          this.searching = false
-        })
+            let self = this
+            
+            setTimeout(function() {
+              self.highlight = true
+            }, 1)
+          }).catch((error) => {
+            this.error = error
+            this.searching = false
+          })
       }
     },
 
