@@ -3,15 +3,18 @@
     <wd-header></wd-header>
 
     <section class="content">
-      <wd-geolocation></wd-geolocation>
+      <wd-geolocation v-on:locationCompleted="locationCompleted"></wd-geolocation>
 
-      <wd-weather></wd-weather>
+      <wd-weather v-if="loadWeather"></wd-weather>
     </section>
+
+    <wd-footer></wd-footer>
   </div>
 </template>
 
 <script>
-  import WdHeader from './components/header/Header'
+  import WdHeader from './components/structure/Header'
+  import WdFooter from './components/structure/Footer'
   import WdGeolocation from './components/geolocation/Geolocation'
   import WdWeather from './components/weather/Weather'
 
@@ -19,14 +22,21 @@
     name: 'app',
     data() {
       return {
-        
+        loadWeather: false
       }
     },
 
     components: {
       WdHeader,
+      WdFooter,
       WdGeolocation,
       WdWeather
+    },
+
+    methods: {
+      locationCompleted: function() {
+        this.loadWeather = true
+      }
     }
   }
 </script>
