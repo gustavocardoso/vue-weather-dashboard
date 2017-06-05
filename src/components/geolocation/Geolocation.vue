@@ -21,14 +21,14 @@
     </section>
 
     <section class="map">
-      <cc-map v-if="showMap" v-on:mapCompleted="mapCompleted"></cc-map>
+      <cc-map v-bind:latitude="currentLatitude" v-bind:longitude="currentLongitude" v-if="showMap" v-on:mapCompleted="mapCompleted"></cc-map>
     </section>
   </section>
 </template>
 
 <script>
   import axios from 'axios'
-  import { GMAPS_API_KEY } from '../../config/config'
+  import { GMAPS_API_KEY, WEATHER_API_KEY } from '../../config/config'
   
   import CcMap from './Map'
 
@@ -57,15 +57,22 @@
           this.searching = true
 
           navigator.geolocation.getCurrentPosition((position) => {
-            const payload = {
-              latitude: position.coords.latitude,
-              longitude: position.coords.longitude,
-              currentPosition: `${position.coords.latitude},${position.coords.longitude}`
-            }
+            this.getLocationKey(position.coords.latitude, position.coords.longitude)
+              .then((response) => {
+                if (response !== '') {
+                  const payload = {
+                    latitude: position.coords.latitude,
+                    longitude: position.coords.longitude,
+                    currentPosition: `${position.coords.latitude},${position.coords.longitude}`,
+                    locationKey: response
+                  }
 
-            this.$store.commit('UPDATE_LOCATION', payload)
+                  this.$store.commit('UPDATE_LOCATION', payload)
 
-            this.getCity()
+                  this.getCity()
+                }
+              })
+              .catch(err => console.log(err))
           })
         } else {
           this.error = 'Your browser doesn\'t have support for geolocation!' 
@@ -109,6 +116,20 @@
           })
       },
 
+      getLocationKey: function(latitude, longitude) {
+        return new Promise((resolve, reject) => {
+          const geoUrl = `http://dataservice.accuweather.com/locations/v1/cities/geoposition/search?apikey=${WEATHER_API_KEY}&q=${latitude},${longitude}`
+          
+          axios.get(geoUrl)
+            .then((response) => {
+              if (response.data.Key !== '') {
+                resolve(response.data.Key)
+              }
+            })
+            .catch(err => reject(err))
+        })
+      },
+
       mapCompleted: function() {
         this.$emit('locationCompleted')
       }
@@ -118,6 +139,16 @@
       currentPosition: function() {
         const location = this.$store.state.location
         return `${location.latitude},${location.longitude}`
+      },
+
+      currentLatitude: function() {
+        const { latitude } = this.$store.state.location
+        return latitude
+      },
+
+      currentLongitude: function() {
+        const { longitude } = this.$store.state.location
+        return longitude
       },
 
       locationInfo: function() {

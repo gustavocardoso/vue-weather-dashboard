@@ -20,6 +20,17 @@
 
     name: 'Map',
 
+    props: {
+      latitude: {
+        type: Number,
+        default() { return 0 }
+      },
+      longitude: {
+        type: Number,
+        default() { return 0 }
+      }
+    },
+
     data () {
       return {
         showMap: false
@@ -27,19 +38,16 @@
     },
 
     created: function() {
-      const { location } = this.$store.state
-      
-      if (location.latitude !== '' && location.latitude !== '') {
-        this.showMap = true
-      }
+      // if (location.latitude !== '' && location.latitude !== '') {
+      //   this.showMap = true
+      // }
 
       this.$emit('mapCompleted')
     },
 
     computed: {
       position: function() {
-        const { location } = this.$store.state
-        return { lat: location.latitude, lng: location.longitude }
+        return { lat: this.latitude, lng: this.longitude }
       }
     }
   }
