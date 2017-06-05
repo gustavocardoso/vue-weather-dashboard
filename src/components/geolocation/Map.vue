@@ -1,9 +1,9 @@
 <template>
-  <div class="map-container">
+  <section class="map-container">
     <gmap-map v-bind:center="position" v-bind:zoom="16" map-type-id="terrain" class="map">
       <gmap-marker v-bind:position="position" v-bind:clickable="true" v-bind:draggable="true" v-bind:animation="2"></gmap-marker>
     </gmap-map>
-  </div>
+  </section>
 </template>
 
 <script>
@@ -32,6 +32,8 @@
       if (location.latitude !== '' && location.latitude !== '') {
         this.showMap = true
       }
+
+      this.$emit('mapCompleted')
     },
 
     computed: {
@@ -47,7 +49,7 @@
   .map-container {
     width: 100%;
     height: 400px;
-    margin: 0 auto;
+    margin: 0 auto 2em 0;
   }
 
   .map {

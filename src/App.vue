@@ -59,6 +59,14 @@
   }
 
   .content {
+    width: 100%;
     padding: 2em;
+    margin: 0 auto;
+  }
+
+  @media screen and (min-width: 991px) {
+    .content {
+      width: 60%;
+    }
   }
 </style>

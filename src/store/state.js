@@ -2,6 +2,7 @@ export default {
   location: {
     latitude: '',
     longitude: '',
+    currentPosition: '',
   },
 
   locationInfo: {

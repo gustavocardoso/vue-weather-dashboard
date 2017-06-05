@@ -1,5 +1,5 @@
 <template>
-  <div class="geolocation">
+  <section class="geolocation">
     <button class="btn-location" v-on:click="getLocation" v-bind:disabled="searching" v-show="!showPosition">
       <div class="loading" v-if="searching">
         <div class="bullet"></div>
@@ -11,6 +11,7 @@
 
       <span v-else>Get your location</span>
     </button>
+
     <p class="error" v-show="error">{{ error }}</p>
     
     <section class="location-info" v-bind:class="{ highlight: highlight }" v-show="showPosition">
@@ -20,14 +21,16 @@
     </section>
 
     <section class="map">
-      <cc-map v-if="showMap"></cc-map>
+      <cc-map v-if="showMap" v-on:mapCompleted="mapCompleted"></cc-map>
     </section>
-  </div>
+  </section>
 </template>
 
 <script>
-  import CcMap from './Map'
   import axios from 'axios'
+  import { GMAPS_API_KEY } from '../../config/config'
+  
+  import CcMap from './Map'
 
   export default {
     name: 'geolocation',
@@ -56,7 +59,8 @@
           navigator.geolocation.getCurrentPosition((position) => {
             const payload = {
               latitude: position.coords.latitude,
-              longitude: position.coords.longitude
+              longitude: position.coords.longitude,
+              currentPosition: `${position.coords.latitude},${position.coords.longitude}`
             }
 
             this.$store.commit('UPDATE_LOCATION', payload)
@@ -69,16 +73,12 @@
       },
 
       getCity: function() {
-        // const geoUrl = 'http://dataservice.accuweather.com/locations/v1/cities/geoposition/search?apikey=GYqoGW1BnIwLzyt5zfSzCpVsmoF9Qd83&q='+ this.currentPosition.latitude +'%2C'+ this.currentPosition.longitude +''
-
-        const { location } = this.$store.state
-
         let geoUrl
 
         if (window.location.protocol === 'https:') {
-          geoUrl = 'https://maps.googleapis.com/maps/api/geocode/json?latlng='+ location.latitude +','+ location.longitude +'&sensor=true&key=AIzaSyDH9VkR9iqxQ1oqODV5uSQltWGqJxxzj38'
+          geoUrl = `https://maps.googleapis.com/maps/api/geocode/json?latlng=${this.currentPosition}&sensor=true&key=${GMAPS_API_KEY}`
         } else {
-          geoUrl = 'http://maps.googleapis.com/maps/api/geocode/json?latlng='+ location.latitude +','+ location.longitude +'&sensor=true'
+          geoUrl = `http://maps.googleapis.com/maps/api/geocode/json?latlng=${this.currentPosition}&sensor=true`
         }
         
         axios.get(geoUrl)
@@ -107,12 +107,17 @@
             this.error = error
             this.searching = false
           })
+      },
+
+      mapCompleted: function() {
+        this.$emit('locationCompleted')
       }
     },
 
     computed: {
       currentPosition: function() {
-        return this.$store.state.location
+        const location = this.$store.state.location
+        return `${location.latitude},${location.longitude}`
       },
 
       locationInfo: function() {
@@ -145,6 +150,7 @@
     border: 0;
     border-radius: 1em;
     padding: 1em;
+    margin-top: 1em;
   }
 
   .btn-location:disabled {

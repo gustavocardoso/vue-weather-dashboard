@@ -23,9 +23,8 @@
     width: 100%;
     font-size: 1em;
     text-align: center;
-    color: #EFF1F3;
-    background: #696773;
-    padding: 1em 2em;
+    color: #696773;
+    padding: 1em 2em 2em 2em;
   }
 
   .footer a {
@@ -33,6 +32,6 @@
   }
 
   .footer a:hover {
-    color: #fff;
+    color: #272727;
   }
 </style>
