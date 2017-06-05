@@ -20,15 +20,14 @@
 
     name: 'Map',
 
-    props: {
-      latitude: {
-        type: Number,
-        default() { return 0 }
-      },
-      longitude: {
-        type: Number,
-        default() { return 0 }
+    computed: {
+      position() {
+        return { lat: this.latitude, lng: this.longitude }
       }
+    },
+
+    created() {
+      this.$emit('mapCompleted')
     },
 
     data () {
@@ -37,13 +36,14 @@
       }
     },
 
-    created() {
-      this.$emit('mapCompleted')
-    },
-
-    computed: {
-      position() {
-        return { lat: this.latitude, lng: this.longitude }
+    props: {
+      latitude: {
+        type: Number,
+        default() { return 0 }
+      },
+      longitude: {
+        type: Number,
+        default() { return 0 }
       }
     }
   }

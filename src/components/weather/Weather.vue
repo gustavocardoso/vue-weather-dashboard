@@ -27,6 +27,10 @@
 
     name: 'Weather',
 
+    created() {
+      this.getCurrentConditions()
+    },
+
     data () {
       return {
         key: '',
@@ -38,10 +42,6 @@
         show: false,
         error: false
       };
-    },
-
-    created() {
-      this.getCurrentConditions()
     },
 
     methods: {

@@ -39,6 +39,35 @@
       CcMap
     },
 
+    computed: {
+      currentPosition() {
+        const location = this.$store.state.location
+        return `${location.latitude},${location.longitude}`
+      },
+
+      currentLatitude() {
+        const { latitude } = this.$store.state.location
+        return latitude
+      },
+
+      currentLongitude() {
+        const { longitude } = this.$store.state.location
+        return longitude
+      },
+
+      locationInfo() {
+        const { locationInfo } = this.$store.state
+        
+        return {
+          city: locationInfo.city,
+          neighborhood: locationInfo.neighborhood,
+          admArea: locationInfo.admArea,
+          country: locationInfo.country,
+          formatted: `${locationInfo.neighborhood} - ${locationInfo.city} / ${locationInfo.admArea}`
+        }
+      }
+    },
+
     data () {
       return {
         error: null,
@@ -50,35 +79,6 @@
     },
 
     methods: {
-      getLocation() {
-        if ("geolocation" in navigator) {
-          this.error = ''
-          this.showPosition = false
-          this.searching = true
-
-          navigator.geolocation.getCurrentPosition((position) => {
-            this.getLocationKey(position.coords.latitude, position.coords.longitude)
-              .then((response) => {
-                if (response !== '') {
-                  const payload = {
-                    latitude: position.coords.latitude,
-                    longitude: position.coords.longitude,
-                    currentPosition: `${position.coords.latitude},${position.coords.longitude}`,
-                    locationKey: response
-                  }
-
-                  this.$store.commit('UPDATE_LOCATION', payload)
-
-                  this.getCity()
-                }
-              })
-              .catch(err => console.log(err))
-          })
-        } else {
-          this.error = 'Your browser doesn\'t have support for geolocation!' 
-        }
-      },
-
       getCity() {
         let geoUrl
 
@@ -115,6 +115,35 @@
             this.searching = false
           })
       },
+      
+      getLocation() {
+        if ("geolocation" in navigator) {
+          this.error = ''
+          this.showPosition = false
+          this.searching = true
+
+          navigator.geolocation.getCurrentPosition((position) => {
+            this.getLocationKey(position.coords.latitude, position.coords.longitude)
+              .then((response) => {
+                if (response !== '') {
+                  const payload = {
+                    latitude: position.coords.latitude,
+                    longitude: position.coords.longitude,
+                    currentPosition: `${position.coords.latitude},${position.coords.longitude}`,
+                    locationKey: response
+                  }
+
+                  this.$store.commit('UPDATE_LOCATION', payload)
+
+                  this.getCity()
+                }
+              })
+              .catch(err => console.log(err))
+          })
+        } else {
+          this.error = 'Your browser doesn\'t have support for geolocation!' 
+        }
+      },
 
       getLocationKey(latitude, longitude) {
         return new Promise((resolve, reject) => {
@@ -132,35 +161,6 @@
 
       mapCompleted() {
         this.$emit('locationCompleted')
-      }
-    },
-
-    computed: {
-      currentPosition() {
-        const location = this.$store.state.location
-        return `${location.latitude},${location.longitude}`
-      },
-
-      currentLatitude() {
-        const { latitude } = this.$store.state.location
-        return latitude
-      },
-
-      currentLongitude() {
-        const { longitude } = this.$store.state.location
-        return longitude
-      },
-
-      locationInfo() {
-        const { locationInfo } = this.$store.state
-        
-        return {
-          city: locationInfo.city,
-          neighborhood: locationInfo.neighborhood,
-          admArea: locationInfo.admArea,
-          country: locationInfo.country,
-          formatted: `${locationInfo.neighborhood} - ${locationInfo.city} / ${locationInfo.admArea}`
-        }
       }
     }
   }

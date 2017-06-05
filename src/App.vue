@@ -20,17 +20,18 @@
 
   export default {
     name: 'app',
-    data() {
-      return {
-        loadWeather: false
-      }
-    },
 
     components: {
       WdHeader,
       WdFooter,
       WdGeolocation,
       WdWeather
+    },
+    
+    data() {
+      return {
+        loadWeather: false
+      }
     },
 
     methods: {
