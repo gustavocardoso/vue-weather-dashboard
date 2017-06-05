@@ -60,7 +60,7 @@
         })
         .catch((err) => {
           this.show = false
-          this.error = 'Unable to load weather info'
+          this.error = 'Unable to load weather info: ' + err
         })
       }
     }

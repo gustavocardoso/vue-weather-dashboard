@@ -115,7 +115,7 @@
             this.searching = false
           })
       },
-      
+
       getLocation() {
         if ("geolocation" in navigator) {
           this.error = ''
@@ -138,7 +138,7 @@
                   this.getCity()
                 }
               })
-              .catch(err => console.log(err))
+              .catch(err => err)
           })
         } else {
           this.error = 'Your browser doesn\'t have support for geolocation!' 
