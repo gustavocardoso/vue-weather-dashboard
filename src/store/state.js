@@ -3,6 +3,7 @@ export default {
     latitude: '',
     longitude: '',
     currentPosition: '',
+    locationKey: ''
   },
 
   locationInfo: {

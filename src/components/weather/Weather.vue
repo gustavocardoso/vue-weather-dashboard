@@ -41,13 +41,15 @@
     },
 
     created: function() {
-      let wt = this.getLocationKey()
-        .then(response => {
-          const locationKey = response
-          const weatherUrl = `http://dataservice.accuweather.com/currentconditions/v1/${locationKey}?apikey=${WEATHER_API_KEY}`
+      this.getCurrentConditions()
+    },
 
-          return axios.get(weatherUrl)
-        })
+    methods: {
+      getCurrentConditions: function() {
+        const { locationKey } = this.$store.state.location
+        const weatherUrl = `http://dataservice.accuweather.com/currentconditions/v1/${locationKey}?apikey=${WEATHER_API_KEY}`
+
+        axios.get(weatherUrl)
         .then((response) => {
           const weatherInfo = response.data[0]
 
@@ -59,23 +61,6 @@
         .catch((err) => {
           this.show = false
           this.error = 'Unable to load weather info'
-        })
-    },
-
-    methods: {
-      getLocationKey: function() {
-        return new Promise((resolve, reject) => {
-          const { currentPosition } = this.$store.state.location
-
-          const geoUrl = `http://dataservice.accuweather.com/locations/v1/cities/geoposition/search?apikey=${WEATHER_API_KEY}&q=${currentPosition}`
-          
-          axios.get(geoUrl)
-            .then((response) => {
-              if (response.data.Key !== '') {
-                resolve(response.data.Key)
-              }
-            })
-            .catch(err => reject(err))
         })
       }
     }
