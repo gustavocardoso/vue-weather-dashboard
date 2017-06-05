@@ -28,7 +28,7 @@
   }
 
   .footer a {
-    color: #FED766;
+    color: #009FB7;
   }
 
   .footer a:hover {
