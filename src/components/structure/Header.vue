@@ -1,8 +1,8 @@
 <template>
   <header class="main-header">
     <wd-logo></wd-logo>
-    <h1 class="app-name">Weather Dashoboard</h1>
-    <p class="app-description">A simple app to play with vue.js</p>
+    <h1 class="name">Weather Dashoboard</h1>
+    <p class="description">A simple app to play with vue.js</p>
   </header>
 </template>
 
@@ -25,7 +25,7 @@
     padding: 1em 2em;
   }
 
-  .app-name {
+  .main-header .name {
     font-size: 2em;
     font-weight: bold;
     letter-spacing: -.1em;
@@ -33,7 +33,7 @@
     margin: 0;
   }
 
-  .app-description {
+  .main-header .description {
     font-size: 1.1em;
     color: #EFF1F3;
     margin-top: -.5em;

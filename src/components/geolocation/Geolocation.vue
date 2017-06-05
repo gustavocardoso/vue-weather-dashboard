@@ -1,6 +1,6 @@
 <template>
-  <section class="geolocation">
-    <button class="btn-location" v-on:click="getLocation" v-bind:disabled="searching" v-show="!showPosition">
+  <section class="geolocation-box">
+    <button class="getlocation" v-on:click="getLocation" v-bind:disabled="searching" v-show="!showPosition">
       <div class="loading" v-if="searching">
         <div class="bullet"></div>
         <div class="bullet"></div>
@@ -14,7 +14,7 @@
 
     <p class="error" v-show="error">{{ error }}</p>
     
-    <section class="location-info" v-bind:class="{ highlight: highlight }" v-show="showPosition">
+    <section class="locationinfo" v-bind:class="{ '-highlight': highlight }" v-show="showPosition">
       <h3>Location info:</h3>
       <span>{{ locationInfo.formatted }}</span>
       <span>{{ locationInfo.country }}</span>
@@ -167,11 +167,11 @@
 </script>
 
 <style scoped>
-  .geolocation {
+  .geolocation-box {
     text-align: center;
   }
 
-  .btn-location {
+  .geolocation-box .getlocation {
     width: 70%;
     height: 4em;
     font-size: 1.4em;
@@ -184,22 +184,22 @@
     margin-top: 1em;
   }
 
-  .btn-location:disabled {
+  .geolocation-box .getlocation:disabled {
     background: #696773;
   }
 
-  .error {
+  .geolocation-box .error {
     margin: 2em 1em;
   }
 
-  .loading {
+  .geolocation-box .loading {
     width: 100%;
     display: flex;
     justify-content: center;
     align-content: center;
   }
 
-  .bullet {
+  .geolocation-box .bullet {
     width: .5em;
     height: .5em;
     background: #EFF1F3;
@@ -207,27 +207,27 @@
     margin: 0 .2em;
   }
 
-  .bullet:nth-child(1) {
+  .geolocation-box .bullet:nth-child(1) {
     animation: pulse .5s infinite ease-in-out;
   }
 
-  .bullet:nth-child(2) {
+  .geolocation-box .bullet:nth-child(2) {
     animation: pulse .5s .1s infinite ease-in-out;
   }
 
-  .bullet:nth-child(3) {
+  .geolocation-box .bullet:nth-child(3) {
     animation: pulse .5s .2s infinite ease-in-out;
   }
 
-  .bullet:nth-child(4) {
+  .geolocation-box .bullet:nth-child(4) {
     animation: pulse .5s .3s infinite ease-in-out;
   }
 
-  .bullet:nth-child(5) {
+  .geolocation-box .bullet:nth-child(5) {
     animation: pulse .5s .4s infinite ease-in-out;
   }
 
-  .location-info {
+  .locationinfo {
     border-radius: 1em;
     background-color: #fff;
     padding: 1em;
@@ -235,11 +235,11 @@
     transition: background-color .5s ease-in-out;
   }
 
-  .highlight {
+  .-highlight {
     background-color: #FED766;
   }
 
-  .location-info span {
+  .locationinfo span {
     display: block;
   }
 

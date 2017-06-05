@@ -1,6 +1,6 @@
 <template>
-  <section class="weather">
-    <div class="weather-container" v-if="show">
+  <section class="weather-box">
+    <div class="container" v-if="show">
       <header>
         <h2>Weather</h2>
         <p>Current conditions</p>
@@ -8,13 +8,13 @@
 
       <section class="info">
         <p class="temperature"><span>{{ weather.temp }}</span>ºC</p>
-        <img v-bind:src="weather.icon" class="weather-icon">
+        <img v-bind:src="weather.icon" class="icon">
         <p class="text">{{ weather.weatherText }}</p>
       </section>
     </div>
 
     <section class="error" v-if="error">
-      <p class="error-text">{{ error }}</p>
+      <p class="text">{{ error }}</p>
     </section>
   </section>
 </template>
@@ -68,41 +68,41 @@
 </script>
 
 <style scoped>
-  .weather {
+  .weather-box {
     text-align: center;
     color: #272727;
     background: #EFF1F3;
     border-radius: 1em;
   }
 
-  .weather header {
+  .weather-box header {
     color: #EFF1F3;
     background: #009FB7;
     border-radius: 1em 1em 0 0;
     padding: .5em;
   }
 
-  .weather header p {
+  .weather-box header p {
     font-size: .8em;
   }
 
-  .info {
+  .weather-box .info {
     margin-top: 1em;
     padding: 0 1em 1em 1em;
   }
 
-  .info .temperature {
+  .weather-box .info .temperature {
     font-size: 1.2em;
     font-weight: normal;
   }
 
-  .info .temperature span {
+  .weather-box .info .temperature span {
     font-size: 1.6em;
     font-weight: 700;
     color: #009FB7;
   }
 
-  .error {
+  .weather-box .error {
     font-weight: 500;
     text-align: center;
     color: #c03;
