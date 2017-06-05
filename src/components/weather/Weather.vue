@@ -40,12 +40,12 @@
       };
     },
 
-    created: function() {
+    created() {
       this.getCurrentConditions()
     },
 
     methods: {
-      getCurrentConditions: function() {
+      getCurrentConditions() {
         const { locationKey } = this.$store.state.location
         const weatherUrl = `http://dataservice.accuweather.com/currentconditions/v1/${locationKey}?apikey=${WEATHER_API_KEY}`
 

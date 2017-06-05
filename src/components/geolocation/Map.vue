@@ -37,16 +37,12 @@
       }
     },
 
-    created: function() {
-      // if (location.latitude !== '' && location.latitude !== '') {
-      //   this.showMap = true
-      // }
-
+    created() {
       this.$emit('mapCompleted')
     },
 
     computed: {
-      position: function() {
+      position() {
         return { lat: this.latitude, lng: this.longitude }
       }
     }

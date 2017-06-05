@@ -50,7 +50,7 @@
     },
 
     methods: {
-      getLocation: function() {
+      getLocation() {
         if ("geolocation" in navigator) {
           this.error = ''
           this.showPosition = false
@@ -79,7 +79,7 @@
         }
       },
 
-      getCity: function() {
+      getCity() {
         let geoUrl
 
         if (window.location.protocol === 'https:') {
@@ -116,7 +116,7 @@
           })
       },
 
-      getLocationKey: function(latitude, longitude) {
+      getLocationKey(latitude, longitude) {
         return new Promise((resolve, reject) => {
           const geoUrl = `http://dataservice.accuweather.com/locations/v1/cities/geoposition/search?apikey=${WEATHER_API_KEY}&q=${latitude},${longitude}`
           
@@ -130,28 +130,28 @@
         })
       },
 
-      mapCompleted: function() {
+      mapCompleted() {
         this.$emit('locationCompleted')
       }
     },
 
     computed: {
-      currentPosition: function() {
+      currentPosition() {
         const location = this.$store.state.location
         return `${location.latitude},${location.longitude}`
       },
 
-      currentLatitude: function() {
+      currentLatitude() {
         const { latitude } = this.$store.state.location
         return latitude
       },
 
-      currentLongitude: function() {
+      currentLongitude() {
         const { longitude } = this.$store.state.location
         return longitude
       },
 
-      locationInfo: function() {
+      locationInfo() {
         const { locationInfo } = this.$store.state
         
         return {

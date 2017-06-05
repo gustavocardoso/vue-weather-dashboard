@@ -34,7 +34,7 @@
     },
 
     methods: {
-      locationCompleted: function() {
+      locationCompleted() {
         this.loadWeather = true
       }
     }
