@@ -2,7 +2,7 @@
   <section class="weather-box">
     <div class="container" v-if="show">
       <header>
-        <h2>Weather</h2>
+        <h2>Ramon</h2>
         <p>Current conditions</p>
       </header>
 
@@ -52,10 +52,11 @@
         axios.get(weatherUrl)
         .then((response) => {
           const weatherInfo = response.data[0]
+          const weatherIconName = (parseInt(weatherInfo.WeatherIcon, 10) < 10) ? `0${weatherInfo.WeatherIcon}` : weatherInfo.WeatherIcon
 
           this.weather.temp = weatherInfo.Temperature.Metric.Value
           this.weather.weatherText = weatherInfo.WeatherText.toLowerCase()
-          this.weather.icon = `https://developer.accuweather.com/sites/default/files/${weatherInfo.WeatherIcon}-s.png`
+          this.weather.icon = `https://developer.accuweather.com/sites/default/files/${weatherIconName}-s.png`
           this.show = true
         })
         .catch((err) => {
