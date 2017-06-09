@@ -43,6 +43,15 @@
 </script>
 
 <style>
+  :root {
+    --dark: #272727;
+    --light: #EFF1F3;
+    --highlight: #FED766;
+    --shade: #696773;
+    --base: #009FB7;
+    --error: #c03;
+  }
+
   * {
     margin: 0;
     padding: 0;

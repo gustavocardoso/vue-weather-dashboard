@@ -2,7 +2,7 @@
   <section class="weather-box">
     <div class="container" v-if="show">
       <header>
-        <h2>Ramon</h2>
+        <h2>Weather</h2>
         <p>Current conditions</p>
       </header>
 
@@ -71,8 +71,8 @@
 <style scoped>
   .weather-box {
     text-align: center;
-    color: #272727;
-    background: #EFF1F3;
+    color: var(--dark);
+    background: var(--light);
     border-radius: 1em;
   }
 
@@ -100,12 +100,12 @@
   .weather-box .info .temperature span {
     font-size: 1.6em;
     font-weight: 700;
-    color: #009FB7;
+    color: var(--base);
   }
 
   .weather-box .error {
     font-weight: 500;
     text-align: center;
-    color: #c03;
+    color: var(--error);
   }
 </style>
