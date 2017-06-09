@@ -1,7 +1,7 @@
-<template>
+<template lang="html">
   <footer class="footer">
-    <p>Developed by <a href="http://gustavocardoso.me">Gustavo Cardoso</a></p>
-    <p>View the project on <a href="https://github.com/gustavocardoso/vue-weather-dashboard">Github</a></p>
+    <p class="developer">Developed by <a href="http://gustavocardoso.me">Gustavo Cardoso</a></p>
+    <p class="repo">View the project on <a href="https://github.com/gustavocardoso/vue-weather-dashboard">Github</a></p>
   </footer>
 </template>
 
@@ -16,15 +16,15 @@
     width: 100%;
     font-size: 1em;
     text-align: center;
-    color: #696773;
+    color: var(--shade);
     padding: 1em 2em 2em 2em;
   }
 
   .footer a {
-    color: #009FB7;
+    color: var(--base);
   }
 
   .footer a:hover {
-    color: #272727;
+    color: var(--dark);
   }
 </style>

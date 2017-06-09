@@ -41,6 +41,7 @@
         type: Number,
         default() { return 0 }
       },
+      
       longitude: {
         type: Number,
         default() { return 0 }

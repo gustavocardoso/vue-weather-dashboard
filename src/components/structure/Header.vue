@@ -19,9 +19,9 @@
 
 <style scoped>
   .main-header {
-    color: #F7FFF7;
+    color: var(--light);
     text-align: center;
-    background: #272727;
+    background: var(--dark);
     padding: 1em 2em;
   }
 
@@ -29,13 +29,12 @@
     font-size: 2em;
     font-weight: bold;
     letter-spacing: -.1em;
-    color: #FED766;
+    color: var(--highlight);
     margin: 0;
   }
 
   .main-header .description {
     font-size: 1.1em;
-    color: #EFF1F3;
     margin-top: -.5em;
   }
 </style>

@@ -176,8 +176,8 @@
     height: 4em;
     font-size: 1.4em;
     font-weight: 700;
-    color: #EFF1F3;
-    background: #009FB7;
+    color: var(--light);
+    background: var(--base);
     border: 0;
     border-radius: 1em;
     padding: 1em;
@@ -185,7 +185,7 @@
   }
 
   .geolocation-box .getlocation:disabled {
-    background: #696773;
+    background: #var(--shade);
   }
 
   .geolocation-box .error {
@@ -202,7 +202,7 @@
   .geolocation-box .bullet {
     width: .5em;
     height: .5em;
-    background: #EFF1F3;
+    background: var(--light);
     border-radius: 50%;
     margin: 0 .2em;
   }
@@ -236,7 +236,7 @@
   }
 
   .-highlight {
-    background-color: #FED766;
+    background-color: var(--highlight);
   }
 
   .locationinfo span {
