@@ -1,0 +1,23 @@
+# This configuration was used Ebert to review the gustavocardoso/vue-weather-dashboard repository
+# on 8c277015937d03b2c2dd8b81f30c037d8a1cc133.
+# You can make this the default configuration for future reviews by moving this
+# file to your repository as `.ebert.yml` and pushing it to GitHub, and tweak
+# it as you wish - To know more on how to change this file to better review your
+# repository you can go to https://ebertapp.io/docs/config and see the configuration
+# details.
+---
+styleguide: plataformatec/linters
+engines:
+  fixme:
+    enabled: true
+  eslint:
+    enabled: true
+  remark-lint:
+    enabled: true
+exclude_paths:
+- config
+- test
+- node_module
+- build
+- dist
+
