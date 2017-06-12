@@ -21,11 +21,19 @@
 
 <script>
   import axios from 'axios'
+  import { mapState } from 'vuex'
+
   import { WEATHER_API_KEY } from '../../config/config'
 
   export default {
 
     name: 'Weather',
+
+    computed: {
+      ...mapState({
+        locationKey: state => state.location.locationKey
+      })
+    },
 
     created() {
       this.getCurrentConditions()
@@ -46,8 +54,7 @@
 
     methods: {
       getCurrentConditions() {
-        const { locationKey } = this.$store.state.location
-        const weatherUrl = `http://dataservice.accuweather.com/currentconditions/v1/${locationKey}?apikey=${WEATHER_API_KEY}`
+        const weatherUrl = `http://dataservice.accuweather.com/currentconditions/v1/${this.locationKey}?apikey=${WEATHER_API_KEY}`
 
         axios.get(weatherUrl)
         .then((response) => {

@@ -16,8 +16,8 @@
     
     <section class="locationinfo" v-bind:class="{ '-highlight': highlight }" v-show="showPosition">
       <h3>Location info:</h3>
-      <span>{{ locationInfo.formatted }}</span>
-      <span>{{ locationInfo.country }}</span>
+      <span>{{ currentLocationInfo.formatted }}</span>
+      <span>{{ currentLocationInfo.country }}</span>
     </section>
 
     <section class="map">
@@ -43,34 +43,29 @@
 
     computed: {
       ...mapState({
-        location: state => state.location
+        location: state => state.location,
+        locationInfo: state => state.locationInfo
       }),
       
       currentPosition() {
-        console.log(this.location)
-        const location = this.$store.state.location
-        return `${location.latitude},${location.longitude}`
+        return `${this.location.latitude},${this.location.longitude}`
       },
 
       currentLatitude() {
-        const { latitude } = this.$store.state.location
-        return latitude
+        return this.location.latitude
       },
 
       currentLongitude() {
-        const { longitude } = this.$store.state.location
-        return longitude
+        return this.location.longitude
       },
 
-      locationInfo() {
-        const { locationInfo } = this.$store.state
-        
+      currentLocationInfo() {
         return {
-          city: locationInfo.city,
-          neighborhood: locationInfo.neighborhood,
-          admArea: locationInfo.admArea,
-          country: locationInfo.country,
-          formatted: `${locationInfo.neighborhood} - ${locationInfo.city} / ${locationInfo.admArea}`
+          city: this.locationInfo.city,
+          neighborhood: this.locationInfo.neighborhood,
+          admArea: this.locationInfo.admArea,
+          country: this.locationInfo.country,
+          formatted: `${this.locationInfo.neighborhood} - ${this.locationInfo.city} / ${this.locationInfo.admArea}`
         }
       }
     },
