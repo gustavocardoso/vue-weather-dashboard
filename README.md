@@ -36,3 +36,5 @@ touch /Users/guneto/Developer/vue-weather-dahboard/.tmp/mocha-webpack/index.html
 *Adjust the path to your own*
 
 For detailed explanation on how things work, checkout the [guide](http://vuejs-templates.github.io/webpack/) and [docs for vue-loader](http://vuejs.github.io/vue-loader).
+
+[![Ebert](https://ebertapp.io/github/gustavocardoso/vue-weather-dashboard.svg)](https://ebertapp.io/github/gustavocardoso/vue-weather-dashboard)
