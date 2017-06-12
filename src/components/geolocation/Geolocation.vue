@@ -28,6 +28,8 @@
 
 <script>
   import axios from 'axios'
+  import { mapState } from 'vuex'
+
   import { GMAPS_API_KEY, WEATHER_API_KEY } from '../../config/config'
   
   import CcMap from './Map'
@@ -40,7 +42,12 @@
     },
 
     computed: {
+      ...mapState({
+        location: state => state.location
+      }),
+      
       currentPosition() {
+        console.log(this.location)
         const location = this.$store.state.location
         return `${location.latitude},${location.longitude}`
       },
@@ -99,7 +106,7 @@
               country: info[7].long_name
             }
 
-            this.$store.commit('UPDATE_LOCATION_INFO', payload)
+            this.$store.dispatch('updateLocationInfo', payload)
                       
             this.showPosition = true
             this.searching = false
@@ -133,7 +140,7 @@
                     locationKey: response
                   }
 
-                  this.$store.commit('UPDATE_LOCATION', payload)
+                  this.$store.dispatch('updateLocation', payload)
 
                   this.getCity()
                 }

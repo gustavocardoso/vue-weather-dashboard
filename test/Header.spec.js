@@ -19,7 +19,7 @@ describe('Header component', function () {
     expect(wrapper.hasClass('main-header')).to.equal(true)
   });
 
-  it('should has wd-logo', () => {
+  it('should has WdLogo', () => {
     expect(wrapper.contains(WdLogo)).to.equal(true)
   });
 });

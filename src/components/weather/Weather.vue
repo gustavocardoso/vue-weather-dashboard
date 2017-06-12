@@ -107,5 +107,6 @@
     font-weight: 500;
     text-align: center;
     color: var(--error);
+    padding: 1em;
   }
 </style>

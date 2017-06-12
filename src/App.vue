@@ -13,6 +13,7 @@
 </template>
 
 <script>
+  import store from './store/store'
   import WdHeader from './components/structure/Header'
   import WdFooter from './components/structure/Footer'
   import WdGeolocation from './components/geolocation/Geolocation'
