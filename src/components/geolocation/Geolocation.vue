@@ -13,12 +13,14 @@
     </button>
 
     <p class="error" v-show="error">{{ error }}</p>
+
+    <cc-location-info class="locationinfo-box" v-bind:location="currentLocationInfo.formatted" v-bind:country="currentLocationInfo.country" v-show="showPosition" v-bind:highlight="highlight"></cc-location-info>
     
-    <section class="locationinfo" v-bind:class="{ '-highlight': highlight }" v-show="showPosition">
+    <!--<section class="locationinfo" v-bind:class="{ '-highlight': highlight }" v-show="showPosition">
       <h3>Location info:</h3>
       <span>{{ currentLocationInfo.formatted }}</span>
       <span>{{ currentLocationInfo.country }}</span>
-    </section>
+    </section>-->
 
     <section class="map">
       <cc-map v-bind:latitude="currentLatitude" v-bind:longitude="currentLongitude" v-if="showMap" v-on:mapCompleted="mapCompleted"></cc-map>
@@ -32,12 +34,14 @@
 
   import { GMAPS_API_KEY, WEATHER_API_KEY } from '../../config/config'
   
+  import CcLocationInfo from './LocationInfo'
   import CcMap from './Map'
 
   export default {
     name: 'geolocation',
 
     components: {
+      CcLocationInfo,
       CcMap
     },
 
@@ -102,7 +106,7 @@
             }
 
             this.$store.dispatch('updateLocationInfo', payload)
-                      
+             
             this.showPosition = true
             this.searching = false
             this.showMap = true
@@ -129,8 +133,8 @@
               .then((response) => {
                 if (response !== '') {
                   const payload = {
-                    latitude: position.coords.latitude,
-                    longitude: position.coords.longitude,
+                    latitude: `${position.coords.latitude}`,
+                    longitude: `${position.coords.longitude}`,
                     currentPosition: `${position.coords.latitude},${position.coords.longitude}`,
                     locationKey: response
                   }
@@ -229,20 +233,8 @@
     animation: pulse .5s .4s infinite ease-in-out;
   }
 
-  .locationinfo {
-    border-radius: 1em;
-    background-color: #fff;
-    padding: 1em;
+  .locationinfo-box {
     margin-bottom: 2em;
-    transition: background-color .5s ease-in-out;
-  }
-
-  .-highlight {
-    background-color: var(--highlight);
-  }
-
-  .locationinfo span {
-    display: block;
   }
 
   @keyframes pulse {
