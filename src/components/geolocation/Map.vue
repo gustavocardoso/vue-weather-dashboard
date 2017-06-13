@@ -22,7 +22,7 @@
 
     computed: {
       position() {
-        return { lat: this.latitude, lng: this.longitude }
+        return { lat: parseFloat(this.latitude), lng: parseFloat(this.longitude) }
       }
     },
 
@@ -38,12 +38,12 @@
 
     props: {
       latitude: {
-        type: Number,
+        type: String,
         default() { return 0 }
       },
       
       longitude: {
-        type: Number,
+        type: String,
         default() { return 0 }
       }
     }
