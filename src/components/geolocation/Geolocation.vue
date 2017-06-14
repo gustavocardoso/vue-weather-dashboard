@@ -14,13 +14,7 @@
 
     <p class="error" v-show="error">{{ error }}</p>
 
-    <cc-location-info class="locationinfo-box" v-bind:location="currentLocationInfo.formatted" v-bind:country="currentLocationInfo.country" v-show="showPosition" v-bind:highlight="highlight"></cc-location-info>
-    
-    <!--<section class="locationinfo" v-bind:class="{ '-highlight': highlight }" v-show="showPosition">
-      <h3>Location info:</h3>
-      <span>{{ currentLocationInfo.formatted }}</span>
-      <span>{{ currentLocationInfo.country }}</span>
-    </section>-->
+    <cc-location-info class="locationinfo-box" v-bind:location="currentLocationInfo.formatted" v-bind:country="currentLocationInfo.country" v-if="showPosition" v-bind:highlight="highlight" v-on:locationInfoCompleted="locationInfoCompleted"></cc-location-info>
 
     <section class="map">
       <cc-map v-bind:latitude="currentLatitude" v-bind:longitude="currentLongitude" v-if="showMap" v-on:mapCompleted="mapCompleted"></cc-map>
@@ -109,7 +103,6 @@
              
             this.showPosition = true
             this.searching = false
-            this.showMap = true
 
             let self = this
             
@@ -163,6 +156,10 @@
             })
             .catch(err => reject(err))
         })
+      },
+
+      locationInfoCompleted() {
+        this.showMap = true
       },
 
       mapCompleted() {

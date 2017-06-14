@@ -25,6 +25,10 @@
         type: Boolean,
         default() { return false }
       }
+    },
+
+    mounted: function() {
+      this.$emit('locationInfoCompleted')
     }
   }
 </script>
