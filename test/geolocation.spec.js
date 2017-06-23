@@ -71,8 +71,6 @@ describe('Geolocation component', () => {
 
       wrapper.setData({ showPosition: true })
 
-      //console.log(wrapper.contains('.locationinfo'))
-      //expect(wrapperLocationInfo.contains('.locationinfo')).to.equal(true)
       const locationInfo = wrapperLocationInfo.find('span')[0].text()
       const locationInfoCountry = wrapperLocationInfo.find('span')[1].text()
       
