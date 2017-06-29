@@ -3,7 +3,7 @@ import { expect } from 'chai'
 
 import store from '../src/store/store'
 
-import App from '../src/App'
+import App from '../src/App.vue'
 
 import WdHeader from '../src/components/structure/Header'
 import WdFooter from '../src/components/structure/Footer'

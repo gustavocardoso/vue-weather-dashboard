@@ -13,10 +13,10 @@
 </template>
 
 <script>
-  import WdHeader from './components/structure/Header.vue'
-  import WdFooter from './components/structure/Footer.vue'
-  import WdGeolocation from './components/geolocation/Geolocation.vue'
-  import WdWeather from './components/weather/Weather.vue'
+  import WdHeader from './components/structure/Header'
+  import WdFooter from './components/structure/Footer'
+  import WdGeolocation from './components/geolocation/Geolocation'
+  import WdWeather from './components/weather/Weather'
 
   export default {
     name: 'app',
