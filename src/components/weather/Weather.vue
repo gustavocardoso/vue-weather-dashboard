@@ -57,19 +57,19 @@
         const weatherUrl = `http://dataservice.accuweather.com/currentconditions/v1/${this.locationKey}?apikey=${WEATHER_API_KEY}`
 
         axios.get(weatherUrl)
-        .then((response) => {
-          const weatherInfo = response.data[0]
-          const weatherIconName = (parseInt(weatherInfo.WeatherIcon, 10) < 10) ? `0${weatherInfo.WeatherIcon}` : weatherInfo.WeatherIcon
+          .then((response) => {
+            const weatherInfo = response.data[0]
+            const weatherIconName = (parseInt(weatherInfo.WeatherIcon, 10) < 10) ? `0${weatherInfo.WeatherIcon}` : weatherInfo.WeatherIcon
 
-          this.weather.temp = weatherInfo.Temperature.Metric.Value
-          this.weather.weatherText = weatherInfo.WeatherText.toLowerCase()
-          this.weather.icon = `https://developer.accuweather.com/sites/default/files/${weatherIconName}-s.png`
-          this.show = true
-        })
-        .catch((err) => {
-          this.show = false
-          this.error = 'Unable to load weather info: ' + err
-        })
+            this.weather.temp = weatherInfo.Temperature.Metric.Value
+            this.weather.weatherText = weatherInfo.WeatherText.toLowerCase()
+            this.weather.icon = `https://developer.accuweather.com/sites/default/files/${weatherIconName}-s.png`
+            this.show = true
+          })
+          .catch((err) => {
+            this.show = false
+            this.error = 'Unable to load weather info: ' + err
+          })
       }
     }
   };
