@@ -4,7 +4,6 @@
 
     <section class="content">
       <wd-geolocation v-on:locationCompleted="locationCompleted"></wd-geolocation>
-
       <wd-weather v-if="loadWeather"></wd-weather>
     </section>
 

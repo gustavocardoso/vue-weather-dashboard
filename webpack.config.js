@@ -1,5 +1,6 @@
 var path = require('path')
 var webpack = require('webpack')
+const dotenv = require('dotenv-webpack')
 
 module.exports = {
   entry: './src/main.js',
@@ -8,6 +9,15 @@ module.exports = {
     publicPath: '/dist/',
     filename: 'build.js'
   },
+  node: {
+    console: false,
+    fs: 'empty',
+    net: 'empty',
+    tls: 'empty'
+  },
+  plugins: [
+    new dotenv()
+  ],
   module: {
     rules: [
       {

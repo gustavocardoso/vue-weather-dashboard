@@ -23,7 +23,7 @@
   import axios from 'axios'
   import { mapState } from 'vuex'
 
-  import { WEATHER_API_KEY } from '../../config/config'
+  const WEATHER_API_KEY = process.env.WEATHER_API_KEY
 
   export default {
 

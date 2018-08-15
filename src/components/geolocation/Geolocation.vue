@@ -26,7 +26,10 @@
   import axios from 'axios'
   import { mapState } from 'vuex'
 
-  import { GMAPS_API_KEY, WEATHER_API_KEY } from '../../config/config'
+  console.log(process.env.GMAPS_API_KEY)
+
+  const GMAPS_API_KEY = process.env.GMAPS_API_KEY
+  const WEATHER_API_KEY = process.env.WEATHER_API_KEY
   
   import CcLocationInfo from './LocationInfo.vue'
   import CcMap from './Map.vue'
@@ -100,7 +103,7 @@
             }
 
             this.$store.dispatch('updateLocationInfo', payload)
-             
+
             this.showPosition = true
             this.searching = false
 
@@ -188,7 +191,7 @@
   }
 
   .geolocation-box .getlocation:disabled {
-    background: #var(--shade);
+    background: var(--shade);
   }
 
   .geolocation-box .error {
