@@ -18,8 +18,11 @@ npm run build
 npm run build --report
 ```
 
-## Teste
-When i ran the `npm run test` commmand, i had an error like this:
+## API keys
+This app use APIs from Google Maps and AccuWeather. After you get your own keys, rename **.env.sample** to **.env** and put them in it.
+
+## Tests
+When I ran the `npm run test` commmand, I had an error like this:
 
 ```bash
 ERROR in   Error: Child compilation failed:
